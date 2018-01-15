@@ -26,7 +26,7 @@ router.get('/recipes', (req, res, next) => {
 
     Recipe.create(newRecipe)
       .then((recipe) => {
-        re.status = 201,
+        res.status(201)
         res.json(recipe)
       })
       .catch((error) => next(error))
