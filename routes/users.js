@@ -29,15 +29,15 @@ router.get('/users', (req, res, next) => {
     .catch((error) => next(error))
   })
 
-  router.get('/users/me', passport.authorize('jwt', { session: false }), (req, res, next) => {
+  router.get('/users/me', passport.authorize('jwt', { session: false }), (request, response, next) => {
     // Once authorized, the user data should be in `req.account`!
-    if (!req.account) {
+    if (!request.account) {
       const error = new Error('Unauthorized')
       error.status = 401
       next(error)
     }
 
-    res.json(req.account)
+    response.json(request.account)
   })
 // .delete('/users/:id', (req, res, next) => {
 //   const user =

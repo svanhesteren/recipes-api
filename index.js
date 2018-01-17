@@ -14,16 +14,17 @@ const PORT = process.env.PORT || 3030
 let app = express()
 
 app
+  .use(function(req, res, next) {
+    res.header('Access-Control-Allow-Origin', '*')
+    // res.header("Access-Control-Allow-Credentials", "true");
+    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization')
+    res.header('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE')
+    next()
+  })
   .use(bodyParser.urlencoded({ extended: true }))
   .use(bodyParser.json())
   .use(passport.initialize())
 
-  .use(function(req, res, next) {
-    res.header('Access-Control-Allow-Origin', '*')
-    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept')
-    res.header('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE')
-    next()
-  })
   .use(recipes)
   .use(users)
   .use(sessions)
